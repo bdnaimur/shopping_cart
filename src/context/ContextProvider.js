@@ -1,17 +1,18 @@
-import React, { createContext, useReducer, useState } from 'react';
+import React, { createContext, useContext, useReducer, useState } from 'react';
 import { faker } from '@faker-js/faker';
-import { cartReducer } from './Reducers';
+import { cartReducer, productReducer } from './Reducers';
 
 // Create a context
 export const AppContext = createContext();
 
+faker.seed(30)
 // Create a provider component
 export const AppProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+
   const [user, setUser] = useState(null); // User state to store both authentication and role
 
 
-  const products = Array.from({ length: 30 }, () => ({
+  const products = Array.from({ length: 20 }, () => ({
     id: faker.string.uuid(),
     name: faker.commerce.productName(),
     price: parseFloat(faker.commerce.price()),
@@ -22,28 +23,32 @@ export const AppProvider = ({ children }) => {
     fastDelivery: faker.datatype.boolean(),
   }));
 
-  const [state, dispatch] = useReducer(cartReducer, {products, cart: [] });
-
-
-  const addToCart = (product) => {
-    setCart([...cart, product]);
-  };
-
-  const removeFromCart = (productToRemove) => {
-    setCart(cart.filter((product) => product !== productToRemove));
-  };
+  const [cartState, cartDispatch] = useReducer(cartReducer, {products, cart: [] });
 
   const login = (role) => {
-    setUser({ role }); // Set the user's role (user or admin)
+    setUser({ role }); 
   };
 
   const logout = () => {
-    setUser(null); // Clear the user state
+    setUser(null); 
   };
 
+
+  const [productState, productDispatch] = useReducer(productReducer, {
+    byStock: false,
+    byFastDelivery: false,
+    byRating: 0,
+    searchQuery: "",
+  });
+
+
   return (
-    <AppContext.Provider value={{ cart, user, addToCart, removeFromCart, login, logout, state, dispatch }}>
+    <AppContext.Provider value={{  user, productState, productDispatch, login, logout, cartState, cartDispatch }}>
       {children}
     </AppContext.Provider>
   );
+};
+
+export const CartState = () => {
+  return useContext(AppContext);
 };
