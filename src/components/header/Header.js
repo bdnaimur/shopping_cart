@@ -17,7 +17,10 @@ import { FaShoppingCart } from "react-icons/fa";
 export default function Header() {
   const {cartState: {cart}, cartDispatch} = CartState()
   console.log("cart from header", cart);
-  
+  const {
+    productDispatch,
+    productState: { byStock, byFastDelivery, sort, byRating },
+  } = CartState();
   const handleSelect = (eventKey) => {
     // alert(`Selected option: ${eventKey}`);
   };
@@ -31,6 +34,14 @@ export default function Header() {
             style={{ width: 500 }}
             type="search"
             placeholder="Search"
+            onChange={(e) => {
+              if(e.target.value.length>1){
+                productDispatch({
+                  type: "FILTER_BY_SEARCH",
+                  payload: e.target.value,
+                })
+              }
+            }}
           />
         </Navbar.Text>
         <Dropdown onSelect={handleSelect}>

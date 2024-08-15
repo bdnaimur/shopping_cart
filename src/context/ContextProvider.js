@@ -21,27 +21,43 @@ export const AppProvider = ({ children }) => {
     rating: parseFloat(faker.datatype.float({ min: 1, max: 5, precision: 0.1 })), // Generates a rating between 1 and 5
     quantity: faker.datatype.number({ min: 1, max: 100 }),
     fastDelivery: faker.datatype.boolean(),
+    instock: faker.datatype.boolean(),
   }));
 
-  const [cartState, cartDispatch] = useReducer(cartReducer, {products, cart: [] });
-
+  
   const login = (role) => {
     setUser({ role }); 
   };
-
+  
   const logout = () => {
     setUser(null); 
   };
-
-
+  
+  
   const [productState, productDispatch] = useReducer(productReducer, {
     byStock: false,
     byFastDelivery: false,
     byRating: 0,
     searchQuery: "",
   });
+  
+  // const applyFilters = (products) => {
+  //   return products.filter((product) => {
+  //     if (productState.byStock && !product.inStock) return false;
+  //     if (productState.byFastDelivery && !product.fastDelivery) return false;
+  //     if (productState.byRating && product.rating < productState.byRating) return false;
+  //     if (productState.searchQuery && !product.name.toLowerCase().includes(productState.searchQuery.toLowerCase())) return false;
+  //     return true;
+  //   });
+  // };
+  
+  // const filteredProducts = applyFilters(products);
+  
+  const [cartState, cartDispatch] = useReducer(cartReducer, {products, cart: [] });
 
 
+  // console.log("productState", productState, "filteredProducts", filteredProducts);
+  
   return (
     <AppContext.Provider value={{  user, productState, productDispatch, login, logout, cartState, cartDispatch }}>
       {children}
