@@ -12,7 +12,7 @@ export default function SingleProduct({ product }) {
     <Card
       style={{
         width: "300px",
-        height: "430px",
+        height: "440px",
         backgroundColor: "#f0f0f0",
         position: "relative",
         padding: "10px",
