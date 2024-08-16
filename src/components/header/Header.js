@@ -41,9 +41,20 @@ export default function Header() {
       }}
     >
       <Container>
-        <Navbar.Brand style={{ cursor: "pointer" }} Link="/home">
-          Shopping Cart
+        <Navbar.Brand style={{ cursor: "pointer" }}>
+          <Link
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontSize: "25px",
+              fontWeight: "bold",
+            }}
+            to="/"
+          >
+            Shopping Cart
+          </Link>
         </Navbar.Brand>
+
         <Navbar.Text className="search">
           <FormControl
             style={{ width: 500 }}
@@ -51,10 +62,10 @@ export default function Header() {
             placeholder="Search"
             onChange={(e) => {
               // if (e.target.value.length > 1) {
-                productDispatch({
-                  type: "FILTER_BY_SEARCH",
-                  payload: e.target.value,
-                });
+              productDispatch({
+                type: "FILTER_BY_SEARCH",
+                payload: e.target.value,
+              });
               // }
             }}
           />
@@ -81,6 +92,26 @@ export default function Header() {
                     <div className="cartItemDetail">
                       <span>{prod.name}</span>
                       <span>BDT {prod.price}</span>
+                    </div>
+                    <div style={{display: 'flex', justifyContent:"space-between",  marginRight: "10px" }}>
+                      <span>Qty</span>
+                      <Dropdown style={{marginLeft: '5px'}}>
+                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                         
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          <Dropdown.Item>
+                            1
+                          </Dropdown.Item>
+                          <Dropdown.Item >
+                            2
+                          </Dropdown.Item>
+                          <Dropdown.Item >
+                            4
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                     </div>
                     <AiFillDelete
                       fontSize="20px"
