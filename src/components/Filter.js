@@ -5,7 +5,7 @@ import Rating from "./Ratings";
 const Filters = () => {
   const {
     productDispatch,
-    productState: { byStock, byFastDelivery, sort, byRating },
+    productState: { byStock, byFastDelivery, sortByPrice, byRating },
   } = CartState();
 
   // make state for rating
@@ -26,7 +26,7 @@ const Filters = () => {
               payload: "lowToHigh",
             })
           }
-          checked={sort === "lowToHigh" ? true : false}
+          checked={sortByPrice === "lowToHigh" ? true : false}
         />
       </span>
       <span>
@@ -42,13 +42,13 @@ const Filters = () => {
               payload: "highToLow",
             })
           }
-          checked={sort === "highToLow" ? true : false}
+          checked={sortByPrice === "highToLow" ? true : false}
         />
       </span>
       <span>
         <Form.Check
           inline
-          label="Include Out of Stock"
+          label="Only In Stock"
           name="group1"
           type="checkbox"
           id={`inline-3`}

@@ -13,18 +13,24 @@ export default function Home() {
    { byStock,
     byFastDelivery,
     byRating,
-    searchQuery,}
+    searchQuery,
+    sortByPrice
+  }
   } = useContext(AppContext);
 
-  console.log("cartState?.filteredProducts", cartState?.products, byStock,
-    byFastDelivery,
-    byRating,
-    searchQuery,);
+  console.log("cartState?.filteredProducts", cartState?.products,
+    byStock);
 
   const transformProducts = () => {
     let products = cartState?.products || [];
+  if (sortByPrice === 'lowToHigh') {
+    products.sort((a, b) => a.price - b.price);
+  } 
+  if (sortByPrice === 'highToLow') {
+    products.sort((a, b) => b.price - a.price);
+  }
     if (byStock) {
-      products = products.filter((product) => product.inStock);
+      products = products.filter((product) => product.instock);
     }
     if (byFastDelivery) {
       products = products.filter((product) => product.fastDelivery);

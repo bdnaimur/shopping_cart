@@ -35,6 +35,7 @@ export const AppProvider = ({ children }) => {
   
   
   const [productState, productDispatch] = useReducer(productReducer, {
+    sortByPrice: null,
     byStock: false,
     byFastDelivery: false,
     byRating: 0,
