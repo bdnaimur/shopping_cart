@@ -28,6 +28,13 @@ export default function Header() {
     // alert(`Selected option: ${eventKey}`);
   };
 
+  const handleItemSelect = (eventKey, prodId) =>{
+    cartDispatch({
+      type: "ADD_TO_CART",
+      payload: {prodId, numOfItem: eventKey},
+    })    
+  }
+
   return (
     <Navbar
       bg="dark"
@@ -94,20 +101,20 @@ export default function Header() {
                       <span>BDT {prod.price}</span>
                     </div>
                     <div style={{display: 'flex', justifyContent:"space-between",  marginRight: "10px" }}>
-                      <span>Qty</span>
-                      <Dropdown style={{marginLeft: '5px'}}>
+                      <span>Qty {prod?.numOfItem}</span>
+                      <Dropdown onSelect={(eventKey)=>handleItemSelect(eventKey, prod?.id)} style={{marginLeft: '5px'}}>
                         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                          
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item>
+                          <Dropdown.Item eventKey="1">
                             1
                           </Dropdown.Item>
-                          <Dropdown.Item >
+                          <Dropdown.Item eventKey="2" >
                             2
                           </Dropdown.Item>
-                          <Dropdown.Item >
+                          <Dropdown.Item eventKey="4">
                             4
                           </Dropdown.Item>
                         </Dropdown.Menu>

@@ -11,7 +11,7 @@ export const AppProvider = ({ children }) => {
 
   const [user, setUser] = useState(null); // User state to store both authentication and role
 
-
+  const [isAuthenticated, setIsLoggedIn] = useState(false)
   const products = Array.from({ length: 20 }, () => ({
     id: faker.string.uuid(),
     name: faker.commerce.productName(),
@@ -22,11 +22,13 @@ export const AppProvider = ({ children }) => {
     quantity: faker.datatype.number({ min: 1, max: 100 }),
     fastDelivery: faker.datatype.boolean(),
     instock: faker.datatype.boolean(),
+    numOfItem: 0
   }));
 
   
   const login = (role) => {
     setUser({ role }); 
+    setIsLoggedIn(true)
   };
   
   const logout = () => {
@@ -60,7 +62,7 @@ export const AppProvider = ({ children }) => {
   // console.log("productState", productState, "filteredProducts", filteredProducts);
   
   return (
-    <AppContext.Provider value={{  user, productState, productDispatch, login, logout, cartState, cartDispatch }}>
+    <AppContext.Provider value={{ isAuthenticated, user, productState, productDispatch, login, logout, cartState, cartDispatch }}>
       {children}
     </AppContext.Provider>
   );

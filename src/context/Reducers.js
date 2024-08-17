@@ -12,10 +12,39 @@ export const ActionTypes = {
     
     switch (action.type) {
       case ActionTypes.ADD_TO_CART:
+        // return {
+        //   ...state,
+        //   // cart: [...state.cart, action.payload],
+        //   cart: [...state.cart, { ...action.payload, numOfItem: 1 }],
+        // };
+
+        // const existingItem = state.cart.find(item => item.id === action.payload.id);
+        const existingItem = "prodId" in action.payload
+      console.log("existingItem", existingItem);
+      
+      if (existingItem) {
+        // If the item is already in the cart, update its quantity
         return {
           ...state,
-          cart: [...state.cart, action.payload],
+          cart: state.cart.map(item =>
+          {
+            if( item.id === action.payload.prodId){
+
+            return { ...item, numOfItem: parseInt(action.payload.numOfItem) }
+            }else{
+              return item
+            }
+          }
+          ),
         };
+      } else {
+        // If the item is not in the cart, add it with numOfItem set to 1
+        return {
+          ...state,
+          cart: [...state.cart, { ...action.payload, numOfItem: 1 }],
+        };
+      }
+
       case ActionTypes.REMOVE_FROM_CART:
         return {
           ...state,

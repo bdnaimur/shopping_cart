@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./components/home/Home";
 import Cart from "./components/cart/Cart";
 import ProductList from "./components/product/DummyProducts";
+import Checkout from "./components/checkout/Checkout";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import LoginPage from "./components/authenticate/Login";
 function App() {
   return (
     <>
@@ -11,10 +14,19 @@ function App() {
      <Header/>
       {/* <Navbar /> */}
       <Routes>
+      <Route path="/" element={<Home />} />
         
-         <Route path="/" element={<Home />} />
+         <Route path="/login" element={<LoginPage />} />
          {/* <Route path="/" element={<ProductList />} /> */}
          <Route path="/cart" element={<Cart />} />
+         <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
        
        {/* <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Product />} />
