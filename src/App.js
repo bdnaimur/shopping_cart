@@ -7,6 +7,7 @@ import ProductList from "./components/product/DummyProducts";
 import Checkout from "./components/checkout/Checkout";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import LoginPage from "./components/authenticate/Login";
+import SignUpPage from "./components/authenticate/SignUp";
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<Home />} />
         
          <Route path="/login" element={<LoginPage />} />
+         <Route path="/signup" element={<SignUpPage />} />
          {/* <Route path="/" element={<ProductList />} /> */}
          <Route path="/cart" element={<Cart />} />
          <Route
