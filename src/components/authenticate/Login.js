@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import { CartState } from "../../context/ContextProvider";
 import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
@@ -11,6 +11,7 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation()
   const { isAuthenticated, login } = CartState();
 
   const [formData, setFormData] = useState({
@@ -33,6 +34,10 @@ function LoginPage() {
       navigate("/checkout");
     }
   }, [isAuthenticated, navigate]);
+
+  const from = location.state?.from || '/';
+  console.log("from", from);
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
