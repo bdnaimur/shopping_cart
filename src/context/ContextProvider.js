@@ -11,7 +11,7 @@ export const AppProvider = ({ children }) => {
 
   const [user, setUser] = useState(null); // User state to store both authentication and role
 
-  const [isAuthenticated, setIsLoggedIn] = useState(false)
+  const [isAuthenticated, setAuthenticated] = useState(false)
   const products = Array.from({ length: 20 }, () => ({
     id: faker.string.uuid(),
     name: faker.commerce.productName(),
@@ -28,11 +28,12 @@ export const AppProvider = ({ children }) => {
   
   const login = (role) => {
     setUser({ role }); 
-    setIsLoggedIn(true)
+    setAuthenticated(true)
   };
   
   const logout = () => {
     setUser(null); 
+    setAuthenticated(false)
   };
   
   

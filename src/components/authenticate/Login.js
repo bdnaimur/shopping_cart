@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import { CartState } from "../../context/ContextProvider";
-import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   // const [email, setEmail] = useState("");
@@ -13,10 +13,9 @@ function LoginPage() {
   const navigate = useNavigate();
   const { isAuthenticated, login } = CartState();
 
-
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const [validated, setValidated] = useState(false);
@@ -35,7 +34,6 @@ function LoginPage() {
     }
   }, [isAuthenticated, navigate]);
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -47,10 +45,10 @@ function LoginPage() {
 
       if (isSuccess) {
         toast.success("Login successful!");
-        login()
+        login();
         setTimeout(() => {
-        //   navigate("/home"); // Redirect to the home page or wherever you want
-        navigate("/checkout");
+          //   navigate("/home"); // Redirect to the home page or wherever you want
+          navigate("/checkout");
         }, 2000); // Delay for the success message
       } else {
         toast.error("Invalid email or password. Please try again.");
@@ -108,52 +106,72 @@ function LoginPage() {
     //   <Toaster /> {/* Add Toaster component here */}
     // </div>
 
-    <Container className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-    <Row className="justify-content-md-center">
-      <Col>
-        <h2 className="text-center">Login</h2>
-        <Form style={{minWidth: '500px', padding: "30px 30px"}} className="login-form" noValidate validated={validated} onSubmit={handleLogin}>
-          <Form.Group controlId="formEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              required
-              type="email"
-              placeholder="Enter your email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid email address.
-            </Form.Control.Feedback>
-          </Form.Group>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
+      <Row className="justify-content-md-center">
+        <Col>
+          <h2 className="text-center">Login</h2>
+          <Form
+            style={{ minWidth: "500px", padding: "30px 30px" }}
+            className="login-form"
+            noValidate
+            validated={validated}
+            onSubmit={handleLogin}
+          >
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                required
+                type="email"
+                placeholder="Enter your email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid email address.
+              </Form.Control.Feedback>
+            </Form.Group>
 
-          <Form.Group controlId="formPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please provide a password.
-            </Form.Control.Feedback>
-          </Form.Group>
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please provide a password.
+              </Form.Control.Feedback>
+            </Form.Group>
 
-          <Button variant="primary" type="submit" className="mt-3">
+            {/* <Button variant="primary" type="submit" className="mt-3">
             Login
-          </Button>
+          </Button> */}
 
-          <div className="mt-3">
-            Don't have an account? <Link to="/signup">Sign Up</Link>
-          </div>
-        </Form>
-      </Col>
-    </Row>
-  </Container>
+            <Button
+              variant="primary"
+              type="submit"
+              className="mt-4"
+              disabled={loading}
+              block
+              style={{minWidth: '65px'}}
+            >
+              {loading ? <Spinner animation="border" size="sm" /> : "Login"}
+            </Button>
+
+            <div className="mt-3">
+              Don't have an account? <Link to="/signup">Sign Up</Link>
+            </div>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

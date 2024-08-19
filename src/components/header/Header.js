@@ -7,6 +7,7 @@ import {
   DropdownButton,
   FormControl,
   Image,
+  Nav,
   Navbar,
 } from "react-bootstrap";
 
@@ -21,12 +22,11 @@ export default function Header() {
   const {
     cartState: { cart },
     cartDispatch,
-  } = CartState();
-  console.log("cart from header", cart);
-  const {
+    isAuthenticated,
+    logout,
     productDispatch,
-    productState: { byStock, byFastDelivery, sort, byRating },
   } = CartState();
+  
   const handleSelect = (eventKey) => {
     // alert(`Selected option: ${eventKey}`);
   };
@@ -67,7 +67,7 @@ export default function Header() {
                   clipPath: "circle(50% at 50% 50%)",
                   width: "78px",
                   height: "78px",
-                  marginRight: '10px'
+                  marginRight: "10px",
                 }}
                 src={`${process.env.PUBLIC_URL}/shopping_logo.jpg`}
                 alt="Logo"
@@ -165,10 +165,39 @@ export default function Header() {
             )}
           </Dropdown.Menu>
         </Dropdown>
+        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+        {/* <Navbar.Collapse id=""> */}
+          <Nav >
+            <Dropdown align="end">
+              <Dropdown.Toggle as="a" bsPrefix="user-dropdown">
+                <Image
+                style={{cursor: "pointer",
+                  objectFit: "cover"}}
+                  src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                  roundedCircle
+                  width="70"
+                  height="70"
+                  alt="User"
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {isAuthenticated ?
+                <>
+                <Dropdown.Item href="/profile">Settings</Dropdown.Item>
+                <Dropdown.Item href="/orders">Orders</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={()=>logout()}>Logout</Dropdown.Item>
+                
+                </>
+                :
+                <Dropdown.Item > <Link style={{textDecoration: "none", color: "black"}} to="/login">Login</Link></Dropdown.Item>
+}
+              </Dropdown.Menu>
+              
+            </Dropdown>
+          </Nav>
+        {/* </Navbar.Collapse> */}
       </Container>
-      {/* <Container> */}
-      {/* <Navbar.Brand href="#home">Home</Navbar.Brand> */}
-      {/* </Container> */}
     </Navbar>
   );
 }
