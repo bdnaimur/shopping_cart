@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 
+shopping_car_backend/node_modules
 # testing
 /coverage
 
